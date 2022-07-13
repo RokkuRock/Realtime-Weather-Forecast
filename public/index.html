@@ -1,89 +1,102 @@
-<!doctype html>
+<!DOCTYPE html>
 	<html>
 		<head>
+			<meta charset="UTF-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Realtime Weather Forecast</title>
+		</head>
 			<style>
+				
 				body {
 					padding:0;
 					margin:0;
 					max-width: 387px;
 					min-width: 300px;
 				}
+				span {
+					
+				}
+				.currentTime {
+				  margin-left: 40%;
+				}
 				.temDetail-row{
-					margin-left: auto;
-  				width: 0%;
+					position: relative;
+        	left: 100%;
 				}
 				.temDetail {
 					border-style: solid;
 					border-color: black;
 					border-width: medium;
+					
 				}
 				.bg {
-					width:100%;
-					height:100%;
+					max-width: 100%;
+  				height: auto;
 					opacity: 0.5; 
     			filter: alpha(opacity=50); 
-					position:absolute;
+					position:fixed;
 					z-index: -1;
 					object-fit:cover;
 				}
-				.input{
-					width:20;
-				}
-				.temDetail{padding:0.01em 16px}
-				.temDetail{display:table-cell}
+			
 			</style>
 		</head>
-	<body>
+	<body onload="current_time()">
+		
 		<img class="bg" src="https://cdn.pixabay.com/photo/2018/05/11/02/02/taipei-3389366_1280.jpg" alt="background">
 		<div class="temDetail-row">
 			<div class="temDetail">
-				<p>現在溫度</p>
-				<p>淡水區</p>
-				<p id="temp">0</p>
+				<span>新北市淡水區</span>
+				<p>現在溫度:	<span id="temp">0</span></p>
+				<p id="networkStatus"></p>
+				<span id="current" class="currentTime"></span>
 			</div>
 			
 			<div class="temDetail">
-				<p>日期: <p id = "0">0</p></p>
-				<p>最高溫度:<p id = "100" >0</p></p>
-				<p>最低溫度:<p id="10000">0</p></p>
+				<span> <p id = "0">0</span>
+				<p>最高溫度:<p id = "100" >0</p>
+				<span>最低溫度:<p id="10000">0</span>
 			</div>
   
 			<div class="temDetail">
-				<p>日期: <p id = "1">0</p></p>
-				<p>最高溫度:<p id = "101" >0</p></p>
-				<p>最低溫度:<p id="10001">0</p></p>
+				<span> <p id = "1">0</span></span>
+				<p>最高溫度:<p id = "101" >0</p>
+				<span>最低溫度:<p id="10001">0</span></span>
 			</div>
   
 			<div class="temDetail">
-				<p>日期: <p id = "2">0</p></p>
-				<p>最高溫度:<p id = "102" >0</p></p>
-				<p>最低溫度:<p id="10002">0</p></p>
+				<span> <p id = "2">0</span>
+				<p>最高溫度:<p id = "102" >0</p>
+				<span>最低溫度:<p id="10002">0</span>
 			</div>
   
 			<div class="temDetail">
-				<p>日期: <p id = "3">0</p></p>
-				<p>最高溫度:<p id = "103" >0</p></p>
-				<p>最低溫度:<p id="10003">0</p></p>
+				<span> <p id = "3">0</span></span>
+				<p>最高溫度:<p id = "103" >0</p>
+				<span>最低溫度:<p id="10003">0</span></span>
 			</div>
   
 			<div class="temDetail">
-				<p>日期: <p id = "4">0</p></p>
-				<p>最高溫度:<p id = "104" >0</p></p>
-				<p>最低溫度:<p id="10004">0</p></p>
+				<span> <p id = "4">0</span></span>
+				<p>最高溫度:<p id = "104" >0</p>
+				<span>最低溫度:<p id="10004">0</span></span>
 			</div>
   
 			<div class="temDetail">
-				<p>日期: <p id = "5">0</p></p>
-				<p>最高溫度:<p id = "105" >0</p></p>
-				<p>最低溫度:<p id="10005">0</p></p>
+				<span> <p id = "5">0</span></span>
+				<p>最高溫度:<p id = "105" >0</p>
+				<span>最低溫度:<p id="10005">0</span></span>
 			</div>
   
 			<div class="temDetail">
-				<p>日期: <p id = "6">0</p></p>
-				<p>最高溫度:<p id = "106" >0</p></p>
-				<p>最低溫度:<p id="10006">0</p></p>
+				<span> <p id = "6">0</span></span>
+				<p>最高溫度:<p id = "106" >0</p>
+				<span>最低溫度:<p id="10006">0</span></span>
 			</div>
 		</div>
+		
+		
 	<script>
 		tempForcast();
 		function tempForcast (){
@@ -92,7 +105,7 @@
 			var day=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
 	
 			fetch("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-071?Authorization=CWB-F800D34C-2B87-4A87-8E9B-1B6FFFB8FAFD&limit=8&format=JSON&locationName=%E6%B7%A1%E6%B0%B4%E5%8D%80&elementName=MinT,MaxT").then(x=>x.json()).then(y=>updata(y))
-			function updata(a){
+		function updata(a){
 	
 		tempdata = a.records.locations[0].location[0].weatherElement;
 		for(var i = 0;i< 14;i += 2){
@@ -101,12 +114,33 @@
 			var date = (tempdata[0].time[i+1].startTime).split(" ")[0];
 			var days = new Date(date);
 			document.getElementById(i/2).innerHTML = date+" "+day[days.getDay()];
+			if(navigator.onLine == true){
+			result = "連線狀態: 正常";
+			}else{
+			result = "連線狀態: 異常";
+			}
+			document.getElementById("networkStatus").innerHTML= result;
 		}
 		}
-		setTimeout(tempForcast, 60000);
+		setTimeout(tempForcast, 30000);
 		}
-		
-		
+		function networkCheck(a){
+		if(a != "200"){
+		document.getElementById("networkStatus").innerHTML = "連線狀態: 異常";
+		}else{
+		document.getElementById("networkStatus").innerHTML = "連線狀態: 正常";
+		console.log (a);
+		}
+	
+		}
+		function current_time(){
+		NowDate=new Date();
+		h=NowDate.getHours();
+		m=NowDate.getMinutes();
+		s=NowDate.getSeconds();　
+		document.getElementById('current').innerHTML = '資料更新時間:'+h+'時'+m+'分'+s+'秒';
+		setTimeout('current_time()',1000);
+		}
     </script>
   </body>
 </html>
