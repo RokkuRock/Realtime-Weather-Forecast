@@ -2,88 +2,111 @@
 	<html>
 		<head>
 			<style>
-				.w3-cell {
+				body {
+					padding:0;
+					margin:0;
+					max-width: 387px;
+					min-width: 300px;
+				}
+				.temDetail-row{
+					margin-left: auto;
+  				width: 0%;
+				}
+				.temDetail {
 					border-style: solid;
 					border-color: black;
 					border-width: medium;
 				}
+				.bg {
+					width:100%;
+					height:100%;
+					opacity: 0.5; 
+    			filter: alpha(opacity=50); 
+					position:absolute;
+					z-index: -1;
+					object-fit:cover;
+				}
 				.input{
 					width:20;
 				}
-				.w3-cell,.w3-panel{padding:0.01em 16px}
-				.w3-cell-row{display:table;width:100%}
-				.w3-cell{display:table-cell}
+				.temDetail{padding:0.01em 16px}
+				.temDetail{display:table-cell}
 			</style>
 		</head>
 	<body>
-		<div class="w3-cell-row">
-			<div class="w3-cell">
+		<img class="bg" src="https://cdn.pixabay.com/photo/2018/05/11/02/02/taipei-3389366_1280.jpg" alt="background">
+		<div class="temDetail-row">
+			<div class="temDetail">
 				<p>現在溫度</p>
+				<p>淡水區</p>
 				<p id="temp">0</p>
 			</div>
 			
-			<div class="w3-cell">
-				<p>today: <p id = "0">0</p></p>
-				<p>max temp:<p id = "100" >0</p></p>
-				<p>min temp:<p id="10000">0</p></p>
+			<div class="temDetail">
+				<p>日期: <p id = "0">0</p></p>
+				<p>最高溫度:<p id = "100" >0</p></p>
+				<p>最低溫度:<p id="10000">0</p></p>
 			</div>
   
-			<div class="w3-cell">
-				<p>date: <p id = "1">0</p></p>
-				<p>max temp:<p id = "101" >0</p></p>
-				<p>min temp:<p id="10001">0</p></p>
+			<div class="temDetail">
+				<p>日期: <p id = "1">0</p></p>
+				<p>最高溫度:<p id = "101" >0</p></p>
+				<p>最低溫度:<p id="10001">0</p></p>
 			</div>
   
-			<div class="w3-cell">
-				<p>date: <p id = "2">0</p></p>
-				<p>max temp:<p id = "102" >0</p></p>
-				<p>min temp:<p id="10002">0</p></p>
+			<div class="temDetail">
+				<p>日期: <p id = "2">0</p></p>
+				<p>最高溫度:<p id = "102" >0</p></p>
+				<p>最低溫度:<p id="10002">0</p></p>
 			</div>
   
-			<div class="w3-cell">
-				<p>date: <p id = "3">0</p></p>
-				<p>max temp:<p id = "103" >0</p></p>
-				<p>min temp:<p id="10003">0</p></p>
+			<div class="temDetail">
+				<p>日期: <p id = "3">0</p></p>
+				<p>最高溫度:<p id = "103" >0</p></p>
+				<p>最低溫度:<p id="10003">0</p></p>
 			</div>
   
-			<div class="w3-cell">
-				<p>date: <p id = "4">0</p></p>
-				<p>max temp:<p id = "104" >0</p></p>
-				<p>min temp:<p id="10004">0</p></p>
+			<div class="temDetail">
+				<p>日期: <p id = "4">0</p></p>
+				<p>最高溫度:<p id = "104" >0</p></p>
+				<p>最低溫度:<p id="10004">0</p></p>
 			</div>
   
-			<div class="w3-cell">
-				<p>date: <p id = "5">0</p></p>
-				<p>max temp:<p id = "105" >0</p></p>
-				<p>min temp:<p id="10005">0</p></p>
+			<div class="temDetail">
+				<p>日期: <p id = "5">0</p></p>
+				<p>最高溫度:<p id = "105" >0</p></p>
+				<p>最低溫度:<p id="10005">0</p></p>
 			</div>
   
-			<div class="w3-cell">
-				<p>date: <p id = "6">0</p></p>
-				<p>max temp:<p id = "106" >0</p></p>
-				<p>min temp:<p id="10006">0</p></p>
+			<div class="temDetail">
+				<p>日期: <p id = "6">0</p></p>
+				<p>最高溫度:<p id = "106" >0</p></p>
+				<p>最低溫度:<p id="10006">0</p></p>
 			</div>
 		</div>
 	<script>
-	
-		fetch("https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWB-F800D34C-2B87-4A87-8E9B-1B6FFFB8FAFD&format=JSON&stationId=466900&elementName=TEMP&parameterName=CITY").then(x=>x.json()).then(y=>document.getElementById("temp").textContent=y.records.location[0].weatherElement[0].elementValue);
+		tempForcast();
+		function tempForcast (){
+			fetch("https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWB-F800D34C-2B87-4A87-8E9B-1B6FFFB8FAFD&format=JSON&stationId=466900&elementName=TEMP&parameterName=CITY").then(x=>x.json()).then(y=>document.getElementById("temp").textContent=y.records.location[0].weatherElement[0].elementValue);
 
-		var day=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+			var day=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
 	
-		fetch("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-071?Authorization=CWB-F800D34C-2B87-4A87-8E9B-1B6FFFB8FAFD&limit=8&format=JSON&locationName=%E6%B7%A1%E6%B0%B4%E5%8D%80&elementName=MinT,MaxT").then(x=>x.json()).then(y=>updata(y))
-	
-		function updata(a){
+			fetch("https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-071?Authorization=CWB-F800D34C-2B87-4A87-8E9B-1B6FFFB8FAFD&limit=8&format=JSON&locationName=%E6%B7%A1%E6%B0%B4%E5%8D%80&elementName=MinT,MaxT").then(x=>x.json()).then(y=>updata(y))
+			function updata(a){
 	
 		tempdata = a.records.locations[0].location[0].weatherElement;
-			for(var i = 0;i< 14;i += 2){
-				document.getElementById((i/2)+100).innerHTML = tempdata[0].time[i].elementValue[0].value;
-				document.getElementById((i/2)+10000).innerHTML = tempdata[1].time[i].elementValue[0].value;
-				var date = (tempdata[0].time[i].startTime).split(" ")[0];
-				var days = new Date(date);
-				document.getElementById(i/2).innerHTML = date+" "+day[days.getDay()];
-			}
+		for(var i = 0;i< 14;i += 2){
+			document.getElementById((i/2)+100).innerHTML = tempdata[0].time[i+1].elementValue[0].value;
+			document.getElementById((i/2)+10000).innerHTML = tempdata[1].time[i+1].elementValue[0].value;
+			var date = (tempdata[0].time[i+1].startTime).split(" ")[0];
+			var days = new Date(date);
+			document.getElementById(i/2).innerHTML = date+" "+day[days.getDay()];
 		}
-
+		}
+		setTimeout(tempForcast, 60000);
+		}
+		
+		
     </script>
   </body>
 </html>
